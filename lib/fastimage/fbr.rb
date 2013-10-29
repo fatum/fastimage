@@ -1,7 +1,7 @@
 # Poor Man's Fiber (API compatible Thread based Fiber implementation for Ruby 1.8)
 # (c) 2008 Aman Gupta (tmm1)
 
-unless defined? Fiber
+unless defined? Fiber || RUBY_PLATFORM =~ /java/
   require 'thread'
 
   class FiberError < StandardError; # :nodoc:
