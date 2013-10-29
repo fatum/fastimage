@@ -173,6 +173,9 @@ class FastImage
       end
     end
     
+    @read_fiber = nil
+    @http = nil
+    
     uri.rewind if uri.respond_to?(:rewind)
     
     raise SizeNotFound if options[:raise_on_failure] && @property == :size && !@size
@@ -201,6 +204,10 @@ class FastImage
     @redirect_count = 0
 
     fetch_using_http_from_parsed_uri
+  rescue StandardError => e
+    @http = nil
+    @read_fiber = nil
+    raise e
   end
   
   def fetch_using_http_from_parsed_uri
