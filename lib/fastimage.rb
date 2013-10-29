@@ -173,8 +173,7 @@ class FastImage
       end
     end
     
-    @read_fiber = nil
-    @http = nil
+    puts @read_fiber.inspect
     
     uri.rewind if uri.respond_to?(:rewind)
     
@@ -204,10 +203,9 @@ class FastImage
     @redirect_count = 0
 
     fetch_using_http_from_parsed_uri
-  rescue StandardError => e
-    @http = nil
+  ensure
     @read_fiber = nil
-    raise e
+    @http = nil
   end
   
   def fetch_using_http_from_parsed_uri
